@@ -1,335 +1,242 @@
-# SmartCarControl
-🚗 Wi-Fi Controlled Robotic Car
+#  Smart_Car_Control
 
-ESP8266 (AP Mode) + Arduino + Real-Time Web Joystick
+## 🚗 Carro Robótico Wi‑Fi Controlado
 
+ESP8266 em modo AP + Arduino + joystick web em tempo real  
+Um carrinho que cria sua própria rede Wi‑Fi, hospeda uma interface web responsiva e permite controle simultâneo de tração e direção sem depender de roteador ou broker MQTT.
 
-📌 Overview
-This project consists of a fully functional Wi-Fi controlled robotic vehicle built using:
-ESP-01 (ESP8266) operating in Access Point mode
+## 📌 Visão Geral
 
+Este projeto é um veículo robótico controlado por Wi‑Fi, composto por:
 
-Arduino Uno for motion control
+ESP‑01 (ESP8266) em modo Access Point.
 
+Arduino Uno para controle de movimento.
 
-H-Bridge motor driver
+Driver H‑Bridge para os motores.
 
+Servo para direção.
 
-Servo motor for steering
+Estrutura mecânica construída sob medida.
 
+Interface web em tempo real com joystick responsivo.
 
-Custom-built mechanical structure
+O sistema cria sua própria rede, hospeda um servidor HTTP e permite controle bidirecional em tempo real de tração e direção.
 
+## 🎯 Objetivo do Projeto
 
-Real-time web interface with responsive joystick
+Hospedar uma rede sem fio própria.
 
+Oferecer uma interface web simples e responsiva.
 
-The system creates its own Wi-Fi network, hosts a web server, and allows real-time bidirectional control of traction and steering without the need for external routers or MQTT brokers.
+Processar comandos de movimento em tempo real.
 
+Controlar dois eixos simultaneamente (tração e direção).
 
-🎯 Project Objective
-The goal was to design a modular embedded system capable of:
-Hosting its own wireless network
+Comunicar microcontroladores por protocolo serial leve.
 
+Integrar mecânica, eletrônica e firmware de forma modular.
 
-Providing a responsive web control interface
+## 🧠 Arquitetura do Sistema
 
+Fluxo de dados
+Usuário (smartphone ou PC) → Rede Wi‑Fi do carrinho (AP) → ESP‑01 (servidor web) → Comunicação serial → Arduino Uno → H‑Bridge + Servo → Movimento
 
-Processing real-time movement commands
+Separação de responsabilidades
+ESP‑01: cria o ponto de acesso e hospeda a interface web.
 
+Interface web: gera comandos a partir do joystick.
 
-Managing dual-axis control (traction + steering)
+ESP‑01: envia comandos via serial.
 
+Arduino: interpreta e executa comandos.
 
-Implementing a lightweight serial communication protocol between microcontrollers
+H‑Bridge: controla sentido dos motores.
 
+Servo: ajusta o ângulo de direção.
 
-Integrating mechanical, electronic, and firmware layers
+Essa divisão facilita manutenção e evolução do projeto.
 
+## 🔧 Construção Mecânica e Projeto Físico
 
-🧠 System Architecture
-User (Smartphone / PC)
-         ↓
-  Wi-Fi Network (AP Mode)
-         ↓
-      ESP-01
-  (Embedded Web Server)
-         ↓
-  Serial Communication
-         ↓
-     Arduino Uno
-         ↓
-  H-Bridge + Servo
-         ↓
-      Motion
+Destaques da estrutura
 
+Chassi rígido e compacto.
 
-🔹 Responsibility Separation
-Component
-Responsibility
-ESP-01
-Creates Wi-Fi AP + Hosts Web Server
-Web Interface
-Generates movement commands
-ESP-01
-Sends commands via Serial
-Arduino
-Parses and executes commands
-H-Bridge
-Controls motor direction
-Servo
-Controls steering angle
+Tração traseira dedicada.
 
-This separation improves modularity and scalability.
+Direção dianteira com linkagem para o servo.
 
-🔌 Mechanical Engineering & Physical Construction
-The vehicle was physically designed and assembled with a modular architecture.
-Structure Highlights:
-Rigid base chassis
+Compartimento de baterias acessível.
 
+Carenagem superior removível.
 
-Rear traction system
+Cabeamento interno organizado.
 
+Critérios de projeto
 
-Front steering system with servo linkage
+Facilidade de manutenção.
 
+Expansão modular (câmera, sensores, telemetria).
 
-Dedicated battery compartment
+Separação elétrica entre controle e alimentação.
 
+Estabilidade durante deslocamento.
 
-Removable upper body for maintenance
+## ⚙️ Firmware Arduino Controle de Movimento
 
+O Arduino recebe comandos seriais do ESP‑01 e executa:
 
-Organized internal wiring layout
+Parsing do formato TRAÇÃO,DIREÇÃO.
 
+Controle dos pinos do H‑Bridge.
 
-Design Considerations:
-Ease of maintenance
+Controle do servo para direção.
 
+Formato de comando  
+Exemplo: F,E (Frente, Esquerda)
 
-Modular expansion (camera, sensors, telemetry)
+Exemplo de parsing
 
-
-Electrical separation between control and power
-
-
-Structural stability during motion
-
-
-The physical build demonstrates integration between mechanical design and embedded systems.
-
-
-⚙️ Firmware – Arduino (Motion Controller)
-The Arduino is responsible for:
-Receiving serial commands from ESP-01
-
-
-Parsing dual-command format
-
-
-Controlling H-Bridge pins
-
-
-Controlling servo positioning
-
-
-
-
-
-
-Command Parsing Logic
-Commands follow this structure:
-TRACTION,DIRECTION
-Example:
-F,E
-The firmware separates commands using:
+cpp
 int pos = comando.indexOf(',');
-Each command is executed independently, allowing simultaneous steering and movement.
+String tracao = comando.substring(0, pos);
+String direcao = comando.substring(pos + 1);
+Cada eixo é tratado de forma independente, permitindo movimento e direção simultâneos.
 
-📡 Firmware – ESP8266 (Web Server & Network Layer)
-The ESP-01 performs:
-Wi-Fi Access Point creation
+## 📡 Firmware ESP8266 Servidor Web e Rede
 
+O ESP‑01 é responsável por:
 
-HTTP server hosting
+Criar o ponto de acesso Wi‑Fi.
 
+Hospedar o servidor HTTP com a interface.
 
-Real-time command transmission
+Enviar comandos em tempo real via serial.
 
+Armazenar a interface HTML em flash usando PROGMEM para economizar RAM.
 
-Interface delivery via PROGMEM
+Configuração de rede
 
-
-Network Configuration
 SSID: CarrinhoRC
-Password: 12345678
-IP Address: 192.168.4.1
-The HTML interface is stored in flash memory using PROGMEM, optimizing RAM usage.
 
+Senha: 12345678
 
-🌐 Web Interface – Responsive Joystick
-The interface was built using:
-HTML5
+IP: 192.168.4.1
 
+## 🌐 Interface Web Joystick Responsiva
 
-Canvas API
+Tecnologias
 
+HTML5 e Canvas API.
 
-Touch events
+Eventos de toque e mouse.
 
+Cálculo vetorial em JavaScript.
 
-JavaScript vector calculation
+Fetch API para requisições assíncronas.
 
+Lógica de controle
 
-Fetch API for asynchronous requests
+Eixo Y: tração (Frente, Ré, Parado).
 
+Eixo X: direção (Esquerda, Direita, Centro).
 
-Control Logic
-Y-axis controls traction (F/R/P)
+Zona morta 15 px para evitar ruído.
 
+Envio de comando apenas quando o estado muda.
 
-X-axis controls steering (E/D/C)
+Retorno automático ao neutro ao soltar o joystick.
 
+Isso reduz tráfego serial e melhora a estabilidade do controle.
 
-15px dead zone to prevent noise
+## 🔄 Protocolo de Comunicação
 
+Códigos
 
-Command transmission only when state changes
+F = Frente
 
+R = Ré
 
-Automatic reset to neutral on release
+P = Parado
 
+E = Esquerda
 
-This reduces serial traffic and improves stability.
+D = Direita
 
+C = Centro
 
-🔄 Communication Protocol
-Code
-Function
-F
-Forward
-R
-Reverse
-P
-Stop
-E
-Left
-D
-Right
-C
-Center
+Exemplos
 
+F,E → Frente e curva à esquerda
 
+F,D → Frente e curva à direita
 
-Example combinations:
-F,E → Forward Left
+R,C → Ré em linha reta
 
+P,C → Neutro
 
-F,D → Forward Right
+## 🛠 Tecnologias e Componentes
 
-
-R,C → Reverse Straight
-
-
-P,C → Neutral
-
-
-
-🛠 Technologies Used
 Hardware
-ESP8266 (ESP-01)
 
+ESP8266 (ESP‑01)
 
 Arduino Uno
 
+Driver H‑Bridge
 
-H-Bridge Motor Driver
+Servo motor
 
+Motor DC
 
-Servo Motor
-
-
-DC Motor
-
-
-5V Power Supply
-
+Fonte 5V
 
 Software
-C++ (Arduino)
+
+C++ para Arduino
+
+Biblioteca ESP8266WebServer
+
+SoftwareSerial para comunicação serial
+
+HTML5 + JavaScript para interface
+
+Protocolo serial leve e eficiente
+
+## 🔐 Melhorias de Engenharia Implementadas
+
+Controle simultâneo de tração e direção.
+
+Filtragem por zona morta no joystick.
+
+Redução de comandos redundantes.
+
+Firmware modular com responsabilidades separadas.
+
+Operação em modo AP sem necessidade de roteador.
+
+Protocolo serial estruturado e previsível.
+
+## 📷 Mídia do Projeto
 
 
-ESP8266WebServer
+## 📈 Melhorias Futuras
 
+Controle de velocidade por PWM.
 
-SoftwareSerial
+Comunicação por WebSocket para menor latência.
 
+Telemetria de bateria.
 
-HTML5 + JavaScript
+Migração para ESP32 com arquitetura unificada.
 
+Streaming de câmera embarcada.
 
-Embedded Serial Protocol
+Aplicativo móvel dedicado.
 
+## 👨‍💻 Autor
 
-
-
-🔐 Engineering Improvements Implemented
-Simultaneous dual-axis control
-
-
-Dead zone filtering
-
-
-Reduced redundant command transmission
-
-
-Modular firmware separation
-
-
-AP-based independence (no router required)
-
-
-Structured communication protocol
-
-
-📷 Project Media
-Add:
-Image of disassembled structure
-
-
-Image of electronics mounted
-
-
-Screenshot of web interface
-
-
-Demonstration video link
-
-
-📈 Future Improvements
-PWM speed control
-
-
-WebSocket real-time communication
-
-
-Battery telemetry
-
-
-ESP32 unified architecture
-
-
-Onboard camera streaming
-
-
-Mobile app interface
-
-
-
-👨‍💻 Author
-Marcos Gabriel Ferreira Miranda
-
-IoT & Embedded Systems Developer
-
-Belo Horizonte - MG
-
+Marcos Gabriel Ferreira Miranda  
+Desenvolvedor IoT e Sistemas Embarcados
+Belo Horizonte MG
