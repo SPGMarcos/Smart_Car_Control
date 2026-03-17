@@ -1,21 +1,21 @@
-# 🚗 Smart_Car_Control
+# Smart_Car_Control 🚗 
 ESP8266 em modo AP + Arduino + joystick web em tempo real  
 Um carrinho que cria sua própria rede Wi‑Fi, hospeda uma interface web responsiva e permite controle simultâneo de tração e direção sem depender de roteador ou broker MQTT.
 
 ## 📌 Visão Geral
 Este projeto é um veículo robótico controlado por Wi‑Fi, composto por:
 
-ESP‑01 (ESP8266) em modo Access Point.
+- ESP‑01 (ESP8266) em modo Access Point.
 
-Arduino Uno para controle de movimento.
+- Arduino Uno para controle de movimento.
 
-Driver H‑Bridge para os motores.
+- Driver H‑Bridge para os motores.
 
-Servo para direção.
+- Servo para direção.
 
-Estrutura mecânica construída sob medida.
+- Estrutura mecânica construída sob medida.
 
-Interface web em tempo real com joystick responsivo.
+- Interface web em tempo real com joystick responsivo.
 
 O sistema cria sua própria rede, hospeda um servidor HTTP e permite controle bidirecional em tempo real de tração e direção.
 
@@ -85,7 +85,8 @@ O Arduino recebe comandos seriais do ESP‑01 e executa:
 
 - Controle do servo para direção.
 
-Formato de comando  
+Formato de comando:
+
 Exemplo: F,E (Frente, Esquerda)
 
 Exemplo de parsing
