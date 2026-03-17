@@ -1,6 +1,8 @@
 # SmartCarControl
 🚗 Wi-Fi Controlled Robotic Car
+
 ESP8266 (AP Mode) + Arduino + Real-Time Web Joystick
+
 
 📌 Overview
 This project consists of a fully functional Wi-Fi controlled robotic vehicle built using:
@@ -23,6 +25,7 @@ Real-time web interface with responsive joystick
 
 
 The system creates its own Wi-Fi network, hosts a web server, and allows real-time bidirectional control of traction and steering without the need for external routers or MQTT brokers.
+
 
 🎯 Project Objective
 The goal was to design a modular embedded system capable of:
@@ -59,6 +62,7 @@ User (Smartphone / PC)
   H-Bridge + Servo
          ↓
       Motion
+
 
 🔹 Responsibility Separation
 Component
@@ -114,6 +118,7 @@ Structural stability during motion
 
 The physical build demonstrates integration between mechanical design and embedded systems.
 
+
 ⚙️ Firmware – Arduino (Motion Controller)
 The Arduino is responsible for:
 Receiving serial commands from ESP-01
@@ -162,12 +167,6 @@ IP Address: 192.168.4.1
 The HTML interface is stored in flash memory using PROGMEM, optimizing RAM usage.
 
 
-
-
-
-
-
-
 🌐 Web Interface – Responsive Joystick
 The interface was built using:
 HTML5
@@ -202,6 +201,7 @@ Automatic reset to neutral on release
 
 
 This reduces serial traffic and improves stability.
+
 
 🔄 Communication Protocol
 Code
@@ -323,7 +323,6 @@ Onboard camera streaming
 
 
 Mobile app interface
-
 
 
 
