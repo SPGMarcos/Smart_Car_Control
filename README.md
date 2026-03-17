@@ -329,6 +329,8 @@ Mobile app interface
 
 👨‍💻 Author
 Marcos Gabriel Ferreira Miranda
- IoT & Embedded Systems Developer
- Belo Horizonte - MG
+
+IoT & Embedded Systems Developer
+
+Belo Horizonte - MG
 
