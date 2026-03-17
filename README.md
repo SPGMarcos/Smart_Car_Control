@@ -20,7 +20,7 @@ Este projeto é um veículo robótico controlado por Wi‑Fi, composto por:
 O sistema cria sua própria rede, hospeda um servidor HTTP e permite controle bidirecional em tempo real de tração e direção.
 
 ## 🎯 Objetivo do Projeto
-Hospedar uma rede sem fio própria.
+- Hospedar uma rede sem fio própria.
 
 - Oferecer uma interface web simples e responsiva.
 
