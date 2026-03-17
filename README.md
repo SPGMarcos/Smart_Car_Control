@@ -1,10 +1,8 @@
 # 🚗 Smart_Car_Control
-
 ESP8266 em modo AP + Arduino + joystick web em tempo real  
 Um carrinho que cria sua própria rede Wi‑Fi, hospeda uma interface web responsiva e permite controle simultâneo de tração e direção sem depender de roteador ou broker MQTT.
 
 ## 📌 Visão Geral
-
 Este projeto é um veículo robótico controlado por Wi‑Fi, composto por:
 
 ESP‑01 (ESP8266) em modo Access Point.
@@ -22,74 +20,70 @@ Interface web em tempo real com joystick responsivo.
 O sistema cria sua própria rede, hospeda um servidor HTTP e permite controle bidirecional em tempo real de tração e direção.
 
 ## 🎯 Objetivo do Projeto
-
 Hospedar uma rede sem fio própria.
 
-Oferecer uma interface web simples e responsiva.
+- Oferecer uma interface web simples e responsiva.
 
-Processar comandos de movimento em tempo real.
+- Processar comandos de movimento em tempo real.
 
-Controlar dois eixos simultaneamente (tração e direção).
+- Controlar dois eixos simultaneamente (tração e direção).
 
-Comunicar microcontroladores por protocolo serial leve.
+- Comunicar microcontroladores por protocolo serial leve.
 
-Integrar mecânica, eletrônica e firmware de forma modular.
+- Integrar mecânica, eletrônica e firmware de forma modular.
 
 ## 🧠 Arquitetura do Sistema
+Fluxo de dados:
+- Usuário (smartphone ou PC) → Rede Wi‑Fi do carrinho (AP) → ESP‑01 (servidor web) → Comunicação serial → Arduino Uno → H‑Bridge + Servo → Movimento
 
-Fluxo de dados
-Usuário (smartphone ou PC) → Rede Wi‑Fi do carrinho (AP) → ESP‑01 (servidor web) → Comunicação serial → Arduino Uno → H‑Bridge + Servo → Movimento
+Separação de responsabilidades:
+- ESP‑01: cria o ponto de acesso e hospeda a interface web.
 
-Separação de responsabilidades
-ESP‑01: cria o ponto de acesso e hospeda a interface web.
+- Interface web: gera comandos a partir do joystick.
 
-Interface web: gera comandos a partir do joystick.
+- ESP‑01: envia comandos via serial.
 
-ESP‑01: envia comandos via serial.
+- Arduino: interpreta e executa comandos.
 
-Arduino: interpreta e executa comandos.
+- H‑Bridge: controla sentido dos motores.
 
-H‑Bridge: controla sentido dos motores.
-
-Servo: ajusta o ângulo de direção.
+- Servo: ajusta o ângulo de direção.
 
 Essa divisão facilita manutenção e evolução do projeto.
 
 ## 🔧 Construção Mecânica e Projeto Físico
+Destaques da estrutura:
 
-Destaques da estrutura
+- Chassi rígido e compacto.
 
-Chassi rígido e compacto.
+- Tração traseira dedicada.
 
-Tração traseira dedicada.
+- Direção dianteira com linkagem para o servo.
 
-Direção dianteira com linkagem para o servo.
+- Compartimento de baterias acessível.
 
-Compartimento de baterias acessível.
+- Carenagem superior removível.
 
-Carenagem superior removível.
+- Cabeamento interno organizado.
 
-Cabeamento interno organizado.
+Critérios de projeto:
 
-Critérios de projeto
+- Facilidade de manutenção.
 
-Facilidade de manutenção.
+- Expansão modular (câmera, sensores, telemetria).
 
-Expansão modular (câmera, sensores, telemetria).
+- Separação elétrica entre controle e alimentação.
 
-Separação elétrica entre controle e alimentação.
-
-Estabilidade durante deslocamento.
+- Estabilidade durante deslocamento.
 
 ## ⚙️ Firmware Arduino Controle de Movimento
-
 O Arduino recebe comandos seriais do ESP‑01 e executa:
 
-Parsing do formato TRAÇÃO,DIREÇÃO.
+- Parsing do formato TRAÇÃO,DIREÇÃO.
 
-Controle dos pinos do H‑Bridge.
+- Controle dos pinos do H‑Bridge.
 
-Controle do servo para direção.
+- Controle do servo para direção.
 
 Formato de comando  
 Exemplo: F,E (Frente, Esquerda)
@@ -103,18 +97,17 @@ String direcao = comando.substring(pos + 1);
 Cada eixo é tratado de forma independente, permitindo movimento e direção simultâneos.
 
 ## 📡 Firmware ESP8266 Servidor Web e Rede
-
 O ESP‑01 é responsável por:
 
-Criar o ponto de acesso Wi‑Fi.
+- Criar o ponto de acesso Wi‑Fi.
 
-Hospedar o servidor HTTP com a interface.
+- Hospedar o servidor HTTP com a interface.
 
-Enviar comandos em tempo real via serial.
+- Enviar comandos em tempo real via serial.
 
-Armazenar a interface HTML em flash usando PROGMEM para economizar RAM.
+- Armazenar a interface HTML em flash usando PROGMEM para economizar RAM.
 
-Configuração de rede
+- Configuração de rede
 
 SSID: CarrinhoRC
 
@@ -123,115 +116,112 @@ Senha: 12345678
 IP: 192.168.4.1
 
 ## 🌐 Interface Web Joystick Responsiva
+Tecnologias:
 
-Tecnologias
+- HTML5 e Canvas API.
 
-HTML5 e Canvas API.
+- Eventos de toque e mouse.
 
-Eventos de toque e mouse.
+- Cálculo vetorial em JavaScript.
 
-Cálculo vetorial em JavaScript.
+- Fetch API para requisições assíncronas.
 
-Fetch API para requisições assíncronas.
+Lógica de controle:
 
-Lógica de controle
+- Eixo Y: tração (Frente, Ré, Parado).
 
-Eixo Y: tração (Frente, Ré, Parado).
+- Eixo X: direção (Esquerda, Direita, Centro).
 
-Eixo X: direção (Esquerda, Direita, Centro).
+- Zona morta 15 px para evitar ruído.
 
-Zona morta 15 px para evitar ruído.
+- Envio de comando apenas quando o estado muda.
 
-Envio de comando apenas quando o estado muda.
-
-Retorno automático ao neutro ao soltar o joystick.
+- Retorno automático ao neutro ao soltar o joystick.
 
 Isso reduz tráfego serial e melhora a estabilidade do controle.
 
 ## 🔄 Protocolo de Comunicação
+Códigos:
 
-Códigos
+- F = Frente
 
-F = Frente
+- R = Ré
 
-R = Ré
+- P = Parado
 
-P = Parado
+- E = Esquerda
 
-E = Esquerda
+- D = Direita
 
-D = Direita
+- C = Centro
 
-C = Centro
+Exemplos:
 
-Exemplos
+- F,E → Frente e curva à esquerda
 
-F,E → Frente e curva à esquerda
+- F,D → Frente e curva à direita
 
-F,D → Frente e curva à direita
+- R,C → Ré em linha reta
 
-R,C → Ré em linha reta
-
-P,C → Neutro
+- P,C → Neutro
 
 ## 🛠 Tecnologias e Componentes
+Hardware:
 
-Hardware
+- ESP8266 (ESP‑01)
 
-ESP8266 (ESP‑01)
+- Arduino Uno
 
-Arduino Uno
+- Driver H‑Bridge
 
-Driver H‑Bridge
+- Servo motor
 
-Servo motor
+- Motor DC
 
-Motor DC
+- Fonte 5V
 
-Fonte 5V
+Software:
 
-Software
+- C++ para Arduino
 
-C++ para Arduino
+- Biblioteca ESP8266WebServer
 
-Biblioteca ESP8266WebServer
+- SoftwareSerial para comunicação serial
 
-SoftwareSerial para comunicação serial
+- HTML5 + JavaScript para interface
 
-HTML5 + JavaScript para interface
-
-Protocolo serial leve e eficiente
+- Protocolo serial leve e eficiente
 
 ## 🔐 Melhorias de Engenharia Implementadas
 
-Controle simultâneo de tração e direção.
+- Controle simultâneo de tração e direção.
 
-Filtragem por zona morta no joystick.
+- Filtragem por zona morta no joystick.
 
-Redução de comandos redundantes.
+- Redução de comandos redundantes.
 
-Firmware modular com responsabilidades separadas.
+- Firmware modular com responsabilidades separadas.
 
-Operação em modo AP sem necessidade de roteador.
+- Operação em modo AP sem necessidade de roteador.
 
-Protocolo serial estruturado e previsível.
+- Protocolo serial estruturado e previsível.
 
 ## 📷 Mídia do Projeto
 
 
 ## 📈 Melhorias Futuras
 
-Controle de velocidade por PWM.
+- Controle de velocidade por PWM.
 
-Comunicação por WebSocket para menor latência.
+- Comunicação por WebSocket para menor latência.
 
-Telemetria de bateria.
+- Telemetria de bateria.
 
-Migração para ESP32 com arquitetura unificada.
+- Migração para ESP32 com arquitetura unificada.
 
-Streaming de câmera embarcada.
+- Streaming de câmera embarcada.
 
-Aplicativo móvel dedicado.
+- Aplicativo móvel dedicado.
 
 ## 👨‍💻 Autor
 
