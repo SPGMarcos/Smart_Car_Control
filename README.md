@@ -1,5 +1,4 @@
-#  Smart_Car_Control
-## 🚗 Carro Robótico Wi‑Fi Controlado
+# 🚗 Smart_Car_Control
 
 ESP8266 em modo AP + Arduino + joystick web em tempo real  
 Um carrinho que cria sua própria rede Wi‑Fi, hospeda uma interface web responsiva e permite controle simultâneo de tração e direção sem depender de roteador ou broker MQTT.
