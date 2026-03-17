@@ -236,5 +236,7 @@ Aplicativo móvel dedicado.
 ## 👨‍💻 Autor
 
 Marcos Gabriel Ferreira Miranda  
+
 Desenvolvedor IoT e Sistemas Embarcados
+
 Belo Horizonte MG
