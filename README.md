@@ -3,7 +3,7 @@ ESP8266 em modo AP + Arduino + joystick web em tempo real
 Um carrinho que cria sua própria rede Wi‑Fi, hospeda uma interface web responsiva e permite controle simultâneo de tração e direção sem depender de roteador ou broker MQTT.
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/fcd71b98-e7dc-4429-8f3a-da8f8e51f1a7" width="400" alt="Dashboard de Irrigação">
+  <img src="https://github.com/user-attachments/assets/8398fd1c-67c7-499a-aa8c-7ba0abbc4562" width="400" alt="Dashboard de Irrigação">
 </div>
 
 ## 📌 Visão Geral
