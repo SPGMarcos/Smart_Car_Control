@@ -23,6 +23,10 @@ Este projeto é um veículo robótico controlado por Wi‑Fi, composto por:
 
 O sistema cria sua própria rede, hospeda um servidor HTTP e permite controle bidirecional em tempo real de tração e direção.
 
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/4bf0faf2-4cf1-4589-ba8b-c2de136dea78" width="400" alt="Dashboard de Irrigação">
+</div>
+
 ## 🎯 Objetivo do Projeto
 - Hospedar uma rede sem fio própria.
 
