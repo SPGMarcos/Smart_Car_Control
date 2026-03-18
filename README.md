@@ -215,8 +215,6 @@ Software:
 
 - Protocolo serial estruturado e previsível.
 
-## 📷 Mídia do Projeto
-
 
 ## 📈 Melhorias Futuras
 
