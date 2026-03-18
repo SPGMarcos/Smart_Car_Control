@@ -202,7 +202,7 @@ Software:
 - Protocolo serial leve e eficiente
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/d44a567d-6ee8-4b21-8c78-542445f6650d" width="400" alt="Dashboard de Irrigação">
+  <img src="https://github.com/user-attachments/assets/ee7ea3d2-369a-4ff8-9128-d049dc8dfc09" width="400" alt="Dashboard de Irrigação">
 </div>
 
 ## 🔐 Melhorias de Engenharia Implementadas
